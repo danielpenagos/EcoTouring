@@ -25,7 +25,16 @@ public class IntegrationTest {
     @ClassRule
     public static final DropwizardAppRule<HelloWorldConfiguration> RULE = new DropwizardAppRule<>(
             HelloWorldApplication.class, CONFIG_PATH,
-            ConfigOverride.config("database.url", "jdbc:oracle:thin:@54.174.139.165:1521:XE"));
+			//ConfigOverride.config("database.url", "jdbc:h2:" + TMP_FILE));
+            ConfigOverride.config("database.url", "jdbc:oracle:thin:@54.174.139.165:1521:XE")
+			
+			//ConfigOverride.config("hibernate.dialect ", "org.hibernate.dialect.Oracle10gDialect");
+			//ConfigOverride.config("hibernate.connection.url ", "jdbc:oracle:thin:@54.174.139.165:1521:XE");
+			//ConfigOverride.config("hibernate.connection.driver_class ", "oracle.jdbc.driver.OracleDriver");
+			//ConfigOverride.config("hibernate.connection.username ", "admin");
+			//ConfigOverride.config("hibernate.connection.password ", "fabricasw");
+			
+			);
 
     private Client client;
 
