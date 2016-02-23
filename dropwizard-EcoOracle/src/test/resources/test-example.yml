@@ -1,0 +1,16 @@
+template: Hello, %s!
+defaultName: Stranger
+
+database:
+  driverClass: oracle.jdbc.OracleDriver
+  user: admin
+  password: fabricasw
+  url: jdbc:oracle:thin:@54.174.139.165:1521:XE
+
+server:
+  applicationConnectors:
+    - type: http
+      port: 0
+  adminConnectors:
+    - type: http
+      port: 0
