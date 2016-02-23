@@ -19,8 +19,10 @@ database:
   
   # any properties specific to your JDBC driver:
   properties:
+  
+  hibernate.dialect: org.hibernate.dialect.Oracle10gDialect
   #  charSet: UTF-8
-
+  
   # the maximum amount of time to wait on an empty pool before throwing an exception
   maxWaitForConnection: 1s
 

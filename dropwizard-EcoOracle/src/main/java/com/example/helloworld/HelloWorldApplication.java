@@ -1,5 +1,8 @@
 package com.example.helloworld;
-
+import com.example.helloworld.auth.ExampleAuthorizer;
+import io.dropwizard.auth.AuthValueFactoryProvider;
+import com.example.helloworld.auth.ExampleAuthenticator;
+import com.example.helloworld.cli.RenderCommand;
 import com.example.helloworld.core.Person;
 import com.example.helloworld.core.Template;
 import com.example.helloworld.core.User;
@@ -14,6 +17,8 @@ import com.example.helloworld.resources.ProtectedResource;
 import com.example.helloworld.resources.ViewResource;
 import io.dropwizard.Application;
 import io.dropwizard.assets.AssetsBundle;
+import io.dropwizard.auth.AuthDynamicFeature;
+import io.dropwizard.auth.basic.BasicCredentialAuthFilter;
 import io.dropwizard.configuration.EnvironmentVariableSubstitutor;
 import io.dropwizard.configuration.SubstitutingSourceProvider;
 import io.dropwizard.db.DataSourceFactory;
@@ -28,16 +33,10 @@ import org.glassfish.jersey.server.filter.RolesAllowedDynamicFeature;
 import java.util.Map;
 
 public class HelloWorldApplication extends Application<HelloWorldConfiguration> {
-    
-	public static void main(String[] args) throws Exception {
+    public static void main(String[] args) throws Exception {
         new HelloWorldApplication().run(args);
     }
 
-    @Override
-    public String getName() {
-        return "hello-world";
-    }	
-	
     private final HibernateBundle<HelloWorldConfiguration> hibernateBundle =
             new HibernateBundle<HelloWorldConfiguration>(Person.class) {
                 @Override
@@ -45,6 +44,11 @@ public class HelloWorldApplication extends Application<HelloWorldConfiguration> 
                     return configuration.getDataSourceFactory();
                 }
             };
+
+    @Override
+    public String getName() {
+        return "hello-world";
+    }
 
     @Override
     public void initialize(Bootstrap<HelloWorldConfiguration> bootstrap) {
@@ -72,7 +76,8 @@ public class HelloWorldApplication extends Application<HelloWorldConfiguration> 
             }
         });
     }
-    
+
+
     @Override
     public void run(HelloWorldConfiguration configuration, Environment environment) {
         final PersonDAO dao = new PersonDAO(hibernateBundle.getSessionFactory());
@@ -93,10 +98,10 @@ public class HelloWorldApplication extends Application<HelloWorldConfiguration> 
         environment.jersey().register(new PeopleResource(dao));
         environment.jersey().register(new PersonResource(dao));
         environment.jersey().register(new FilteredResource());
-		
-		final DBIFactory factory = new DBIFactory();
+
+		/**final DBIFactory factory = new DBIFactory();
 	    final DBI jdbi = factory.build(environment, config.getDataSourceFactory(), "oracle");
 	    final PersonDAO dao = jdbi.onDemand(PersonDAO.class);
-	    environment.jersey().register(new PersonResource(dao));
+	    environment.jersey().register(new PersonResource(dao));*/
     }
 }
