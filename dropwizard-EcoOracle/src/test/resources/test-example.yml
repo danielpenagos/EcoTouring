@@ -6,10 +6,11 @@ database:
   url: jdbc:oracle:thin:@54.174.139.165:1521:XE
   user: admin
   password: fabricasw
-
+  defaultCatalog: admin  
+  validationQuery: "/* MyService Health Check */ SELECT 1 FROM EMP"
+  logValidationErrors: true
   properties:
-    hibernate.dialect: org.hibernate.dialect.Oracle10gDialect
-    validationQuery: "/* MyService Health Check */ SELECT 1 FROM DUAL"
+     hibernate.dialect: org.hibernate.dialect.Oracle10gDialect
 
 server:
   applicationConnectors:
@@ -18,4 +19,4 @@ server:
   adminConnectors:
     - type: http
       port: 0
-	  
+ 

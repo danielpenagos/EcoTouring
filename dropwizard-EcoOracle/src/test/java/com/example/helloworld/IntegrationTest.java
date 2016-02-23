@@ -70,7 +70,7 @@ public class IntegrationTest {
                 .get(Saying.class);
         assertThat(saying.getContent()).isEqualTo(RULE.getConfiguration().buildTemplate().render(name));
     }
-
+/*
     @Test
     public void testPostPerson() throws Exception {
         final Person person = new Person("Dr. IntegrationTest", "Chief Wizard");
@@ -82,4 +82,5 @@ public class IntegrationTest {
         assertThat(newPerson.getFullName()).isEqualTo(person.getFullName());
         assertThat(newPerson.getJobTitle()).isEqualTo(person.getJobTitle());
     }
+    */
 }
